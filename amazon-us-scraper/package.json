@@ -1,0 +1,22 @@
+{
+  "name": "amazon-us-scraper",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Search Amazon US and export affiliate-tagged product listings",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "scrape": "node src/cli.js",
+    "import-csv": "node src/import-csv.js",
+    "check": "node --check src/amazon.js && node --check src/database.js && node --check src/server.js && node --check src/cli.js && node --check src/import-csv.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "pg": "^8.13.1",
+    "playwright": "^1.51.0"
+  }
+}

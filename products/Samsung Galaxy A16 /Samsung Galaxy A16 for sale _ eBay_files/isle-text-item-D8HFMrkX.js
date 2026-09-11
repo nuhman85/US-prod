@@ -1,0 +1,1 @@
+import{s as e}from"./rolldown-runtime-BcKkbAw3.js";import{Uo as t,Wo as n,fs as r}from"./vendor-BgJtc9NV.js";var i=e(r());n();var a=e(t());(0,i.register)(`vq`,a.default),(0,i.init)(`M_fbd99063`);

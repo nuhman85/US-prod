@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amazon US Affiliate Search</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">AMAZON.CA</p>
+        <h1>Affiliate product finder</h1>
+        <p>Search Amazon US and collect product listings with your affiliate tag already attached.</p>
+      </header>
+
+      <form id="search-form">
+        <label for="search-term">Search term</label>
+        <div class="search-row">
+          <input id="search-term" name="searchTerm" placeholder="e.g. wireless headphones" required autofocus>
+          <button type="submit">Search Amazon.com</button>
+        </div>
+        <details>
+          <summary>Search limits</summary>
+          <div class="limits">
+            <label>Pages <input id="max-pages" type="number" min="1" max="50" value="10"></label>
+            <label>Products <input id="max-items" type="number" min="0" value="0"><small>0 means no product limit</small></label>
+          </div>
+        </details>
+        <fieldset>
+          <legend>Product condition</legend>
+          <div class="condition-options">
+            <label><input type="radio" name="condition" value="new"> New</label>
+            <label><input type="radio" name="condition" value="used"> Used</label>
+            <label><input type="radio" name="condition" value="both" checked> Both</label>
+          </div>
+        </fieldset>
+      </form>
+
+      <section id="status" class="status" hidden></section>
+      <section id="toolbar" class="toolbar" hidden>
+        <strong id="summary"></strong>
+        <button id="download" type="button">Download CSV</button>
+      </section>
+      <section id="results" class="results"></section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

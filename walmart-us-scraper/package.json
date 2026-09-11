@@ -1,0 +1,25 @@
+{
+  "name": "walmart-us-scraper",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Scrape Walmart US search results and store product details in PostgreSQL",
+  "type": "module",
+  "scripts": {
+    "scrape": "node src/scrape.js",
+    "import-html": "node src/import-html.js",
+    "ui": "node src/server.js",
+    "check": "node --check src/scrape.js && node --check src/import-html.js && node --check src/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "multer": "^2.2.0",
+    "pg": "^8.13.1",
+    "playwright": "^1.51.0"
+  }
+}

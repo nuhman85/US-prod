@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bulk retailer import — MapleMatch</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/"><span class="brand-mark">M</span><span>MapleMatch</span></a>
+        <nav class="side-nav">
+          <a class="nav-item" href="/"><span class="nav-icon">⌁</span>Product matcher</a>
+          <a class="nav-item active" href="/bulk-import"><span class="nav-icon">⇧</span>Bulk import</a>
+        </nav>
+      </aside>
+      <main class="main">
+        <header class="topbar"><div class="breadcrumbs"><span>Catalog</span><b>/</b><strong>Bulk import</strong></div></header>
+        <div class="workspace bulk-workspace">
+          <section class="page-heading"><div><span class="eyebrow">RETAILER HTML IMPORT</span><h1>Bulk import saved pages</h1><p>Import eBay, Best Buy, and Walmart search pages. Existing product URLs are updated, never duplicated.</p></div></section>
+          <section class="bulk-panel">
+            <div class="bulk-choice">
+              <h2>Select saved HTML files</h2>
+              <p>Select many files or an entire browser-saved folder. Asset folders are ignored.</p>
+              <div class="bulk-actions">
+                <label class="primary-button file-button">Choose HTML files<input id="filePicker" type="file" accept=".html,.htm,text/html" multiple /></label>
+                <label class="secondary-button file-button">Choose folder<input id="folderPicker" type="file" accept=".html,.htm,text/html" webkitdirectory multiple /></label>
+              </div>
+            </div>
+            <div class="bulk-divider"><span>or import a local products folder</span></div>
+            <form id="folderForm" class="folder-form">
+              <input id="folderPath" value="/Users/nuhmanparamban/2026/US/products/canon camera" aria-label="Folder path" />
+              <button class="primary-button" type="submit">Import folder</button>
+            </form>
+            <p class="bulk-note">For safety, folder paths must be inside <code>/Users/nuhmanparamban/2026/US/products</code>.</p>
+          </section>
+          <section class="bulk-results" aria-live="polite">
+            <div class="bulk-summary"><strong id="bulkStatus">Ready to import</strong><span id="bulkTotals"></span></div>
+            <div class="progress-track bulk-progress"><span id="bulkProgress"></span></div>
+            <div id="resultList" class="result-list"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script src="bulk-import.js"></script>
+  </body>
+</html>

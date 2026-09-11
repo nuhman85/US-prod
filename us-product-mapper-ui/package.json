@@ -1,0 +1,20 @@
+{
+  "name": "us-product-mapper-ui",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "matcher": ".venv/bin/python semantic_matcher.py",
+    "check": "node --check server.js && node --check app.js && python3 -m py_compile semantic_matcher.py",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "pg": "^8.13.1"
+  }
+}

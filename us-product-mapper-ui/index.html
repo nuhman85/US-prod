@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Map American marketplace listings into consolidated product records." />
+    <title>MapleMatch — Product consolidation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#" aria-label="MapleMatch home">
+          <span class="brand-mark" aria-hidden="true">M</span>
+          <span>MapleMatch</span>
+        </a>
+
+        <nav class="side-nav" aria-label="Primary navigation">
+          <button class="nav-item term-view-nav active" id="activeTermsTab" type="button"><span class="nav-icon">⌁</span>Product matcher <span class="nav-count" id="navActiveTermCount">0</span></button>
+          <button class="nav-item term-view-nav" id="completedTermsTab" type="button"><span class="nav-icon">✓</span>Completed <span class="nav-count" id="navCompletedTermCount">0</span></button>
+          <a class="nav-item" href="/bulk-import"><span class="nav-icon">⇧</span>Bulk import</a>
+          <a class="nav-item" href="#saved"><span class="nav-icon">□</span>Saved products <span class="nav-count" id="navSavedCount">12</span></a>
+          <a class="nav-item" href="#export"><span class="nav-icon">↗</span>Export queue <span class="nav-count" id="navExportPendingCount">0</span></a>
+        </nav>
+
+        <div class="side-footer">
+          <div class="sync-card">
+            <div class="sync-row"><span class="sync-dot"></span><strong>All sources synced</strong></div>
+            <p>Last updated 8 minutes ago</p>
+          </div>
+          <button class="user-card" type="button">
+            <span class="avatar">NP</span>
+            <span><strong>Nuhman P.</strong><small>Administrator</small></span>
+            <span class="kebab">•••</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Catalog</span><b>/</b><strong>Product matcher</strong></div>
+          <div class="top-actions">
+            <button class="icon-button" type="button" aria-label="Notifications">♧<span class="notification-dot"></span></button>
+            <button class="help-button" type="button">? <span>Help</span></button>
+          </div>
+        </header>
+
+        <div class="workspace">
+          <section class="page-heading">
+            <div>
+              <span class="eyebrow">CANADIAN CATALOG</span>
+              <h1>Product matcher</h1>
+              <p>Review suggested matches and combine marketplace listings into one product.</p>
+            </div>
+            <div class="progress-summary">
+              <div class="progress-copy"><span>Today's progress</span><strong id="progressText">12 of 38 reviewed</strong></div>
+              <div class="progress-track"><span id="progressBar"></span></div>
+            </div>
+          </section>
+
+          <section class="export-panel" id="export" aria-labelledby="exportTitle">
+            <div class="export-heading">
+              <div>
+                <span class="step-kicker">US_PRODUCT_LIST EXPORT</span>
+                <h2 id="exportTitle">Export mapped products to CompareAllStores United States</h2>
+                <p id="exportTarget">Target: compareallstores.com/ca</p>
+              </div>
+              <button class="primary-button export-button" id="exportButton" type="button">
+                <span>Export non-exported</span><b>→</b>
+              </button>
+            </div>
+            <div class="export-stats" aria-label="Export status counts">
+              <div><span>Mapped</span><strong id="exportTotalCount">0</strong></div>
+              <div><span>Pending</span><strong id="exportPendingCount">0</strong></div>
+              <div><span>Exported</span><strong id="exportedCount">0</strong></div>
+              <div><span>Failed</span><strong id="exportFailedCount">0</strong></div>
+            </div>
+            <div class="export-recent" id="exportRecent"></div>
+          </section>
+
+          <section class="term-panel" aria-labelledby="termTitle">
+            <div class="term-topline">
+              <div class="match-heading-copy">
+                <span class="step-number">1</span>
+                <span class="step-kicker">SELECT A SEARCH TERM · AMAZON_US_PRODUCTS</span>
+              </div>
+              <div class="term-options">
+                <label class="completion-filter"><input id="termCompleted" type="checkbox" /> <span id="termCompletedLabel">Mark search term complete</span></label>
+                <label class="title-filter"><input id="titleContainsTerm" type="checkbox" /> Title contains search term</label>
+                <span class="term-total">8 terms pending</span>
+              </div>
+            </div>
+            <div class="term-row">
+              <button class="term-arrow" id="termPrev" type="button" aria-label="Previous search terms">‹</button>
+              <div class="term-list" id="termList" role="listbox" aria-label="Search terms"></div>
+              <button class="term-arrow" id="termNext" type="button" aria-label="Next search terms">›</button>
+            </div>
+          </section>
+
+          <section class="matching-section" aria-labelledby="matchTitle">
+            <div class="section-heading">
+              <div>
+                <span class="step-number">2</span>
+                <span class="step-kicker">CHOOSE THE BEST MATCHES</span>
+                <h2 id="matchTitle">Match listings to the amazon_us_products master</h2>
+              </div>
+              <div class="master-navigation">
+                <button id="productPrev" type="button" aria-label="Previous Amazon product">‹</button>
+                <label class="page-jump" for="productPage">
+                  <input id="productPage" type="number" min="1" value="1" inputmode="numeric" aria-label="Jump to Amazon product number" />
+                  <span>of <b id="productTotal">—</b></span>
+                </label>
+                <button id="productNext" type="button" aria-label="Next Amazon product">›</button>
+                <div class="confidence-legend"><span></span> Match confidence</div>
+              </div>
+            </div>
+
+            <article class="master-card" id="masterCard"></article>
+
+            <section class="manual-match-panel" aria-labelledby="manualMatchTitle">
+              <div class="manual-match-copy">
+                <strong id="manualMatchTitle">Search imported retailer listings</strong>
+                <span id="manualMatchHint">Optional — use this when the suggested matches do not contain the product.</span>
+              </div>
+              <form class="manual-match-form" id="manualMatchForm">
+                <input id="manualMatchSearch" type="search" minlength="2" placeholder="Search Best Buy, Walmart and eBay products…" autocomplete="off" />
+                <button id="manualMatchClear" type="button" hidden>Clear</button>
+                <button id="manualMatchButton" type="submit">Search listings</button>
+              </form>
+            </section>
+
+            <section class="exclude-panel">
+              <div class="exclude-heading">
+                <div><strong>Title exclusion filters</strong><span id="excludeSummary">No exclusions applied</span></div>
+                <div><button id="clearExcludes" type="button" hidden>Clear all</button><button id="toggleExcludePicker" type="button">+ Exclude words from this title</button></div>
+              </div>
+              <div class="active-excludes" id="activeExcludes"></div>
+              <div class="exclude-picker" id="excludePicker" hidden>
+                <p>Select one or more words from this product title. Any queued title containing a selected word will be removed.</p>
+                <div class="exclude-word-list" id="excludeWordList"></div>
+                <button id="applyExcludes" type="button">Apply selected filters</button>
+              </div>
+            </section>
+
+            <div class="connector" aria-hidden="true"><span>match with</span></div>
+
+            <div class="retailer-grid" id="retailerGrid"></div>
+          </section>
+
+          <section class="save-bar" id="saved">
+            <div class="selection-summary">
+              <div class="stacked-logos" id="selectedLogos"></div>
+              <div><strong id="selectionTitle">Amazon master + 0 matches</strong><span id="selectionHint">Choose one listing from any retailer</span></div>
+            </div>
+            <div class="save-actions">
+              <button class="text-button" id="skipButton" type="button">Skip for now</button>
+              <button class="primary-button" id="saveButton" type="button" disabled><span>Save consolidated product</span><b>→</b></button>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">
+      <span class="toast-check">✓</span>
+      <div><strong>Product saved</strong><small>Added to us-product-list</small></div>
+      <button type="button" aria-label="Dismiss notification">×</button>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

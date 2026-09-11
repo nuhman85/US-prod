@@ -1,0 +1,2 @@
+!function e(){e.countOfRetries||(e.countOfRetries=1),e.hasSetupAlready||(window.EventManager&&window.EventManager&&!window.EventManager.default?e.hasSetupAlready=!0:window.EventManager&&window.EventManager.default?(window._setUpEventManager(),e.hasSetupAlready=!0):e.countOfRetries<40&&(++e.countOfRetries>20?setTimeout(e,50):setTimeout(e,25)))}();
+//# sourceMappingURL=setup-event-manager.8.9.11.js.map

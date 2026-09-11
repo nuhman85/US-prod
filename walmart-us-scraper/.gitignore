@@ -1,0 +1,6 @@
+node_modules/
+.env
+.walmart-browser-profile/
+.walmart-browser-profile-*/
+scrape-output.json
+npm-debug.log*

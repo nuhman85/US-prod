@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)https://www.newegg.com/api/storageHub -->
+<html lang="en" foxified-bridged="" foxified=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      </head>
+      <body>
+        <script>
+        var StorageHub = /** @class */ (function () {
+          function StorageHub() {
+              this._listener = this._listener.bind(this);
+              this._get = this._get.bind(this);
+              this._set = this._set.bind(this);
+              this._remove = this._remove.bind(this);
+              this.init();
+          }
+          StorageHub.prototype.init = function () {
+              var available = true;
+              try {
+                  if (!window.localStorage)
+                      return false;
+              }
+              catch (err) {
+                  available = false;
+              }
+              if (!available) {
+                  try {
+                      return window.parent.postMessage('corss-storage:unavailabe', '*');
+                  }
+                  catch (e) {
+                      return;
+                  }
+              }
+              // StorageHub._permissions = permissions || [];
+              this.initalizeListener();
+              window.parent.postMessage('cross-storage:ready', '*');
+          };
+          StorageHub.prototype.initalizeListener = function () {
+              if (window.addEventListener) {
+                  window.addEventListener('message', this._listener, false);
+              }
+              else if (window.attachEvent) {
+                  window.attachEvent('onmessage', this._listener);
+              }
+          };
+          StorageHub.prototype._listener = function (msg) {
+              var targetOrigin, origin, result, error, request,pattern,source;
+              origin = (msg.origin === null) ? 'file://' : msg.origin;
+              pattern =  new RegExp("\\.(newegg\\.ca|neweggbusiness\\.com|newegg\\.com)\\/?$");
+
+              if(origin != 'file://' && !pattern.test(origin)){
+                  return;
+              } 
+
+              // handling polling for a ready message
+              if (msg.data === 'cross-storage:poll') {
+                  return window.parent.postMessage('cross-storage:ready', msg.origin);
+              }
+              // ignore the ready message
+              if (msg.data === 'cross-storage:ready') {
+                  return;
+              }
+              // check whether the object is valid JSON
+              try {
+                  request = JSON.parse(msg.data);
+              }
+              catch (err) {
+                  return;
+              }
+              if (!request || typeof request.action !== 'string') {
+                  return;
+              }
+              var method = request.action.split(':')[1];
+              if (!method) {
+                  return;
+                  // } else if (!StorageHub.permitted(origin, method)) {
+                  //   error = "Invalid permissions for " + method;
+              }
+              else {
+                  try {
+                      var _a = request.params, key = _a.key, value = _a.value;
+                      switch (method) {
+                          case 'get':
+                              result = this._get(key);
+                              break;
+                          case 'set':
+                              result = this._set(key, value);
+                              break;
+                          case 'remove':
+                              result = this._remove(key);
+                              break;
+                      }
+                  }
+                  catch (err) {
+                      error = err.message;
+                  }
+              }
+              var response = JSON.stringify({
+                  id: request.id,
+                  error: error,
+                  result: result
+              });
+              // postMessage requires that the target origin set to '*' for 'file://'
+              targetOrigin = (origin === 'file://') ? '*' : origin;
+              window.parent.postMessage(response, targetOrigin);
+              // parent.postMessage(JSON.stringify(result), targetOrigin);
+          };
+          StorageHub.prototype._get = function (key) {
+              return window.localStorage.getItem(key);
+          };
+          StorageHub.prototype._set = function (key, value) {
+              window.localStorage.setItem(key, value);
+              return this._get(key);
+          };
+          StorageHub.prototype._remove = function (key) {
+              window.localStorage.removeItem(key);
+              return this._get(key);
+          };
+          return StorageHub;
+      }());
+      var storageHub = new StorageHub();
+        </script>
+      <script type="module" src="./v3d52b47920f24c319d37e2661827c42b1787588026925" integrity="sha512-d9sL6GJLXn6fInD1+TVXhTcQOsmxeHfmHAvwGDIxp5TO+uo1fiWW7mHomMj4MLRlCsJDTqXzWLHJFFlPCEIj/A==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;387c93e6ba3d4a31848a814d01696265&quot;}" crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3303a7cae0d4fcb',t:'MTc4ODA1NTUwNQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; visibility: hidden;" src="./saved_resource(3).html"></iframe>
+      
+    </body></html>

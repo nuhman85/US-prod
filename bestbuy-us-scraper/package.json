@@ -1,0 +1,24 @@
+{
+  "name": "bestbuy-us-scraper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scrape": "node src/cli.js",
+    "ui": "node src/server.js",
+    "import-html": "node src/import-html.js",
+    "check": "node --check src/cli.js && node --check src/import-html.js && node --check src/server.js",
+    "test": "node --test test/args.test.js test/database.test.js test/import-html.test.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "multer": "^2.0.2",
+    "pg": "^8.16.3",
+    "playwright": "^1.55.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

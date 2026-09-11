@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>eBay US HTML Importer</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main>
+    <header><span class="eyebrow">eBay US</span><h1>Saved search importer</h1><p>Preview a saved eBay results page and import item prices plus shipping to United States.</p></header>
+    <section class="panel">
+      <form id="upload-form">
+        <label>Search term <input id="search-term" name="searchTerm" type="text" placeholder="Detected from HTML (for example: standing desk)"></label>
+        <label class="drop-zone" id="drop-zone"><input id="html-file" name="htmlFile" type="file" accept=".html,.htm,text/html" required><span class="icon">↑</span><strong id="file-label">Choose an eBay HTML file</strong><small>HTML or HTM, up to 25 MB</small></label>
+        <div class="actions"><button type="submit">Preview products</button><button id="import" type="button" class="primary" disabled>Import to database</button></div>
+      </form>
+      <div id="status" role="status" aria-live="polite"></div>
+    </section>
+    <section id="results" class="panel" hidden>
+      <div class="results-heading"><div><span class="eyebrow">Preview</span><h2 id="result-title">Products found</h2></div><span id="count" class="count"></span></div>
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>Product</th><th>Item</th><th>Price</th><th>United States shipping</th><th>Total</th><th>Specifications</th></tr></thead><tbody id="product-rows"></tbody></table></div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
