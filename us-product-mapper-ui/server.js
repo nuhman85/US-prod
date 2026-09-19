@@ -1,3 +1,5 @@
+import { createTrendService } from "./us-trends-store.js";
+import { readImportedKeywords } from "./imported-keywords-store.js";
 import "dotenv/config";
 import express from "express";
 import pg from "pg";
@@ -49,6 +51,25 @@ app.get("/bulk-import", (_request, response) =>
 app.get("/bulk-import.js", (_request, response) =>
   response.sendFile(path.join(root, "bulk-import.js")),
 );
+
+app.get("/imported-keywords", (_request, response) => response.sendFile(path.join(root, "imported-keywords.html")));
+app.get("/imported-keywords.js", (_request, response) => response.sendFile(path.join(root, "imported-keywords.js")));
+app.get("/api/imported-keywords", async (_request, response, next) => {
+  try { response.json({ keywords: await readImportedKeywords(pool) }); }
+  catch (error) { next(error); }
+});
+
+const getUsTrends = createTrendService();
+app.get("/us-trends", (_request, response) => response.sendFile(path.join(root, "us-trends.html")));
+app.get("/us-trends.js", (_request, response) => response.sendFile(path.join(root, "us-trends.js")));
+app.get("/api/us-trends", async (_request, response) => {
+  try {
+    const [trends, imports] = await Promise.allSettled([getUsTrends(), readImportedKeywords(pool)]);
+    if (trends.status === "rejected") return response.status(503).json({ error: trends.reason.message });
+    response.set("Cache-Control", "no-store").json({ ...trends.value,
+      importedKeywords: imports.status === "fulfilled" ? imports.value : null });
+  } catch { response.status(503).json({ error: "Could not load US trends." }); }
+});
 
 const productsRoot = path.resolve(process.env.PRODUCTS_ROOT || path.join(root, "..", "products"));
 const htmlExtension = /\.html?$/i;

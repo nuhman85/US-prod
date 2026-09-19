@@ -303,3 +303,35 @@ h1 { font-size: 30px; letter-spacing: -1px; }
   .bulk-actions, .folder-form, .bulk-summary { align-items: stretch; flex-direction: column; }
   .save-actions { justify-content: space-between; }
 }
+
+.keyword-filters { display:flex; gap:16px; align-items:end; flex-wrap:wrap; margin-bottom:20px; }
+.keyword-filters label { display:grid; gap:8px; flex:1; min-width:180px; }
+.keyword-filters input,.keyword-filters select { width:100%; padding:12px; border:1px solid #dfe2e8; border-radius:8px; background:white; color:inherit; font:inherit; }
+.keyword-table-wrap { overflow-x:auto; }
+.keyword-table { width:100%; border-collapse:collapse; margin-top:16px; text-align:left; }
+.keyword-table th,.keyword-table td { padding:14px 12px; border-bottom:1px solid #e5e7eb; }
+.keyword-table th { font-size:12px; color:#69707d; }
+
+@media (max-width: 760px) {
+  .sidebar:has(a[href="/imported-keywords"]) { flex-wrap:wrap; gap:10px; }
+  .side-nav { flex-wrap:wrap; gap:8px; }
+  .side-nav a[href="/imported-keywords"], .keywords-page .side-nav .nav-item:not(.active) { display:flex; padding:0 10px; }
+}
+.trend-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:16px; margin:20px 0; }
+.trend-card { border:1px solid #dfe2e8; border-radius:12px; padding:20px; overflow-wrap:anywhere; }
+.trend-card h2 { font-size:20px; margin:8px 0 12px; }
+.trend-card p { margin:10px 0; line-height:1.5; }
+.trend-note { color:#69707d; font-size:13px; line-height:1.5; margin:12px 0; }
+.trend-imported { color:#216742; font-weight:600; }
+.trend-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:18px; }
+.keyword-filters .trend-check { display:flex; align-items:center; font-size:13px; }
+.trend-check input { width:auto; }
+@media(max-width:760px) { .side-nav a[href="/us-trends"] { display:flex; padding:0 10px; } }
+@media (min-width:701px) and (max-width:1080px) {
+  .keywords-page .app-shell { grid-template-columns:220px minmax(0,1fr); }
+  .keywords-page .nav-item { justify-content:flex-start; padding:0 10px; }
+}
+@media (max-width:700px) {
+  .sidebar:has(a[href="/us-trends"]) { height:auto; min-height:62px; }
+  .sidebar:has(a[href="/us-trends"]) .side-nav { width:100%; }
+}

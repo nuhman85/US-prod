@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Imported keywords — MapleMatch</title><link rel="stylesheet" href="styles.css"></head>
+<body class="keywords-page"><div class="app-shell"><aside class="sidebar"><a class="brand" href="/"><span class="brand-mark">M</span><span>MapleMatch</span></a><nav class="side-nav" aria-label="Primary navigation">
+<a class="nav-item" href="/">Product matcher</a><a class="nav-item" href="/bulk-import">Bulk import</a><a class="nav-item active" href="/imported-keywords" aria-current="page">Imported keywords</a><a class="nav-item" href="/us-trends"><span class="nav-icon">↗</span>US trends</a></nav></aside>
+<main class="main"><header class="topbar"><div class="breadcrumbs">Catalog / Imported keywords</div></header><div class="workspace bulk-workspace">
+<section class="page-heading"><div><h1>Imported keywords</h1><p>Check saved keywords before searching or importing again. Counts reflect products associated with each keyword, not complete search coverage.</p></div></section>
+<section class="bulk-panel"><div class="keyword-filters"><label>Find a keyword<input id="keywordFilter" type="search" placeholder="e.g. hp envy 14 laptop"></label><label>Retailer<select id="retailerFilter"><option value="">All retailers</option><option>Amazon</option><option>Best Buy</option><option>Walmart</option><option>eBay</option><option>Newegg</option></select></label><button id="refreshKeywords" class="secondary-button" type="button">Refresh</button></div>
+<p id="keywordStatus" role="status">Loading imported keywords…</p><div class="keyword-table-wrap"><table class="keyword-table"><thead><tr><th>Keyword</th><th>Retailer</th><th>Products</th><th>Latest saved</th></tr></thead><tbody id="keywordRows"></tbody></table></div></section>
+</div></main></div><script src="imported-keywords.js"></script></body></html>

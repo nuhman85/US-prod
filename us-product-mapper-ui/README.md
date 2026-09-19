@@ -28,3 +28,9 @@ python3 -m venv .venv
 ```
 
 The first run downloads `all-MiniLM-L6-v2`. The service listens on port `4010`; override it with `SEMANTIC_MATCHER_URL` in the mapper environment. Set `SEMANTIC_MATCHER_ENABLED=false` to explicitly use fallback matching only.
+
+The **Imported keywords** menu opens `/imported-keywords`, a searchable list across Amazon, Best Buy, Walmart, eBay, and Newegg. It uses existing saved products and search associations, groups keyword capitalization/spacing variants, and shows distinct product counts and the latest saved date. Refresh after importing. Counts indicate stored associations, not whether every results page was imported.
+
+The **US trends** menu opens `/us-trends`. It reads Google's public US Trending Now RSS feed and uses product-pattern rules to suggest related shopping keywords. These are ideas inferred from news-related search topics, not product sales rankings or measured demand for each suggested keyword. The public feed may contain no matching product topics. Suggestions include source topics, dates, Google Trends links, copy buttons, and retailer search links. Exact keyword import checks use the existing imported-keyword history; an unavailable database is shown as unknown, never as not imported.
+
+The feed is fetched on demand, cached in memory for 10 minutes, and shared between simultaneous requests. If a refresh fails, previously fetched suggestions are explicitly marked stale; without cached data an error and retry action are shown. Feed requests time out after 15 seconds. This requires outbound HTTPS access to `trends.google.com`, but no API key. See [Google's Trending Now help](https://support.google.com/trends/answer/3076011?hl=en) for the source's RSS export and geographic filters.
